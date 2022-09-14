@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/iammrdev/purpleschool-nodejs/issues"
   },
-  "homepage": "https://github.com/iammrdev/purpleschool-nodejs#readme"
+  "homepage": "https://github.com/iammrdev/purpleschool-nodejs#readme",
+  "dependencies": {
+    "node-notifier": "^10.0.1"
+  }
 }
