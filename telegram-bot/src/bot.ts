@@ -19,9 +19,6 @@ export const setupBot = () => {
     bot.use(new LocalSession({ database: 'session.json' }).middleware());
     bot.use(stage.middleware());
     bot.use((ctx, next) => {
-        console.log({ myProp: ctx.session.myProp });
-        console.log({ myProps: ctx.scene?.session.myProps });
-
         if (!ctx.session.state) {
             ctx.session.state = {};
         }
@@ -37,7 +34,9 @@ export const setupBot = () => {
 
     bot.hears('✅ В меню', back);
     bot.hears('🌏 Подписаться на акции', (ctx) => ctx.scene.enter('subscribe'));
-    bot.hears('🍀 Информация', (ctx) => ctx.reply('Я бот, который поможет тебе следить за самыми последними акциями'));
+    bot.hears('🍀 Информация', (ctx) =>
+        ctx.reply('Я бот, который поможет тебе следить за самыми последними акциями'),
+    );
 
     return bot;
 };

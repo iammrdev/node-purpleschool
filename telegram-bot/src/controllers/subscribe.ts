@@ -8,9 +8,8 @@ const sceneMenu = Markup.keyboard([
 ]).resize();
 
 const topicMenu = Markup.keyboard([
-    [Markup.button.text('JavaScript'), Markup.button.text('React')],
-    [Markup.button.text('Vue'), Markup.button.text('Angular')],
-    [Markup.button.text('SystemDesign'), Markup.button.text('Algorithms')],
+    [Markup.button.text('Электроника'), Markup.button.text('Книги')],
+    [Markup.button.text('Продукты питания'), Markup.button.text('Одежда')],
     [Markup.button.text('🌏 Выбрать город'), Markup.button.text('✅ В меню')],
 ]);
 
@@ -38,7 +37,7 @@ subscribeScene.hears(['Москва', 'Санкт-Петербург'], (ctx) =>
     ctx.reply('Выберите тематики для подписки', topicMenu);
 });
 
-subscribeScene.hears(['JavaScript', 'React', 'Vue', 'Angular', 'SystemDesign', 'Algorithms'], (ctx) => {
+subscribeScene.hears(['Электроника', 'Книги', 'Продукты питания', 'Одежда'], (ctx) => {
     if (!ctx.session.state.topics) {
         ctx.session.state.topics = [];
     }

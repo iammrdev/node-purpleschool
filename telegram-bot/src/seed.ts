@@ -55,7 +55,7 @@ const fillDB = async () => {
 
     // ? - как связать сущности? создать теги, а потом связать с офферами
     await prisma.user.create({ data: user });
-    await prisma.topic.createMany({ data: topics }); // BatchPayload -> count
+    await prisma.topic.createMany({ data: topics }); // тут только BatchPayload -> count
     await prisma.tag.createMany({ data: tags });
     await prisma.city.createMany({ data: cities });
 
