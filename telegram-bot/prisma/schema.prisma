@@ -13,7 +13,7 @@ model User {
   username   String
   telegramId BigInt   @unique
   createdAt  DateTime @default(now())
-  updatedAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
   topics UserOnTopic[]
 }
@@ -42,7 +42,7 @@ model Offer {
   endAt     DateTime @default(now())
   url       String
   createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   topic   Topic        @relation(fields: [topicId], references: [id])
   topicId Int
@@ -64,7 +64,7 @@ model UserOnTopic {
   topic     Topic    @relation(fields: [topicId], references: [id])
   topicId   Int
   createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@id([userId, topicId])
 }
@@ -75,7 +75,7 @@ model OfferOnTag {
   tag       Tag      @relation(fields: [tagId], references: [id])
   tagId     Int
   createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@id([offerId, tagId])
 }
