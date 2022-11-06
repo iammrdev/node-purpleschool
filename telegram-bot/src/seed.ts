@@ -53,9 +53,8 @@ const fillDB = async () => {
     const prisma = new PrismaClient();
     await prisma.$connect();
 
-    // ? - как связать сущности? создать теги, а потом связать с офферами
     await prisma.user.create({ data: user });
-    await prisma.topic.createMany({ data: topics }); // тут только BatchPayload -> count
+    await prisma.topic.createMany({ data: topics });
     await prisma.tag.createMany({ data: tags });
     await prisma.city.createMany({ data: cities });
 
@@ -69,8 +68,6 @@ const fillDB = async () => {
         }),
     });
 
-    // ? - так ли создаются связи m2m?
-    // ? - как обработать ситуацию, если сущность создалась, а связь нет?
     await prisma.offerOnTag.createMany({
         data: [
             {
@@ -102,7 +99,4 @@ const fillDB = async () => {
     });
 };
 
-// ? - какой командой можно почистить базу (данные), чтобы она сбросилась в ноль?
 fillDB();
-
-// ? - миграции, какие есть нюансы? насколько можно отклониться от первоначальных моделей?
