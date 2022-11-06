@@ -1,6 +1,5 @@
 import { Markup, Scenes } from 'telegraf';
 import { MyContext } from '../types';
-import { back } from './back';
 
 const sceneMenu = Markup.keyboard([
     [Markup.button.text('Москва'), Markup.button.text('Санкт-Петербург')],
@@ -23,8 +22,7 @@ subscribeScene.enter((ctx) => {
 });
 
 subscribeScene.hears('✅ В меню', (ctx) => {
-    ctx.scene.leave();
-    return back(ctx);
+    return ctx.scene.enter('main');
 });
 
 subscribeScene.hears('🌏 Выбрать город', (ctx) => {

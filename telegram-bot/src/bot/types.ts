@@ -7,7 +7,7 @@ export interface MySessionScene extends Scenes.SceneSessionData {
 export interface MySession extends Scenes.SceneSession<MySessionScene> {
     myProp?: number;
     state: {
-        userId?: number;
+        user?: Record<string, any>;
         city?: string;
         topics?: string[];
     };

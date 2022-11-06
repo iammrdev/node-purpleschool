@@ -1,8 +1,8 @@
 import 'dotenv/config';
 import { PrismaClient } from '@prisma/client';
-import { setupBot } from './bot';
+import { setupBot } from './bot/bot';
 
-(async function () {
+const initApp = async () => {
     try {
         const prisma = new PrismaClient();
         await prisma.$connect();
@@ -13,4 +13,6 @@ import { setupBot } from './bot';
     } catch (error) {
         console.log('Ошибка запуска: ', error);
     }
-})();
+};
+
+initApp();
