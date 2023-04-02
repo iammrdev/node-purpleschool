@@ -1,11 +1,9 @@
 import { Context, Scenes } from 'telegraf';
+import { BotRepository } from './repository';
 
-export interface MySessionScene extends Scenes.SceneSessionData {
-    myProps: string;
-}
+export interface MySessionScene extends Scenes.SceneSessionData {}
 
 export interface MySession extends Scenes.SceneSession<MySessionScene> {
-    myProp?: number;
     state: {
         user?: Record<string, any>;
         city?: string;
@@ -14,7 +12,10 @@ export interface MySession extends Scenes.SceneSession<MySessionScene> {
 }
 
 export interface MyContext extends Context {
-    props: string;
+    props: {
+        telegramId: number;
+        repository: BotRepository;
+    };
     session: MySession;
     scene: Scenes.SceneContextScene<MyContext, MySessionScene>;
 }

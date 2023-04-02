@@ -8,28 +8,29 @@ datasource db {
 }
 
 model User {
-  id         Int      @id @default(autoincrement())
-  name       String
-  username   String
-  telegramId BigInt   @unique
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id              Int      @id @default(autoincrement())
+  name            String
+  telegramId      Int      @unique
+  hasNotification Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 
-  topics UserOnTopic[]
+  topics      Topic[]
+  UserOnTopic UserOnTopic[]
 }
 
 model Topic {
-  id   Int    @id @default(autoincrement())
-  name String
+  id     Int     @id @default(autoincrement())
+  name   String  @unique
+  offers Offer[]
 
-  users UserOnTopic[]
-  offer Offer[]
+  users       User[]
+  UserOnTopic UserOnTopic[]
 }
 
 model City {
-  id   Int    @id @default(autoincrement())
-  name String
-
+  id     Int     @id @default(autoincrement())
+  name   String
   offers Offer[]
 }
 
@@ -40,33 +41,26 @@ model Offer {
   image     String?
   startAt   DateTime @default(now())
   endAt     DateTime @default(now())
-  url       String
+  url       String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  topic   Topic        @relation(fields: [topicId], references: [id])
   topicId Int
-  city    City         @relation(fields: [cityId], references: [id])
-  cityId  Int
-  tags    OfferOnTag[]
+  topic   Topic @relation(fields: [topicId], references: [id])
+
+  cityId Int
+  city   City @relation(fields: [cityId], references: [id])
+
+  tags       Tag[]
+  OfferOnTag OfferOnTag[]
 }
 
 model Tag {
   id   Int    @id @default(autoincrement())
   name String @unique
 
-  offers OfferOnTag[]
-}
-
-model UserOnTopic {
-  user      User     @relation(fields: [userId], references: [id])
-  userId    Int
-  topic     Topic    @relation(fields: [topicId], references: [id])
-  topicId   Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@id([userId, topicId])
+  offers     Offer[]
+  OfferOnTag OfferOnTag[]
 }
 
 model OfferOnTag {
@@ -78,4 +72,15 @@ model OfferOnTag {
   updatedAt DateTime @updatedAt
 
   @@id([offerId, tagId])
+}
+
+model UserOnTopic {
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  topic     Topic    @relation(fields: [topicId], references: [id])
+  topicId   Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([userId, topicId])
 }

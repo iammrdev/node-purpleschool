@@ -1,0 +1,35 @@
+@baseUrl =  http://localhost:5000
+@token = Basic YWRtaW46MTIzNDU2
+
+# Health check
+GET {{baseUrl}}/api/health HTTP/1.1
+Authorization: {{token}}
+###
+
+# Send notification to user chat
+POST {{baseUrl}}/api/notify HTTP/1.1
+Authorization: {{token}}
+Content-Type: application/json
+
+{
+  "message": "This is a notification",
+  "chatId": 338366302
+}
+###
+
+# Create offer
+POST {{baseUrl}}/api/offers HTTP/1.1
+Authorization: {{token}}
+Content-Type: application/json
+
+{
+  "title": "Твердые орехи",
+  "text": "Cупер новое предложение",
+  "url": "https://www.ozon.ru",
+  "startAt": "2023-04-02",
+  "endAt": "2023-04-03",
+  "cityId": 1,
+  "topicId": 1,
+  "tags": [1,2]
+}
+###
