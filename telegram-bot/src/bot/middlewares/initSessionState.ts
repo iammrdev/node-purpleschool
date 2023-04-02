@@ -1,17 +1,23 @@
+import { getUserId } from '../../utils';
 import { MyContext } from '../types';
 
-export const initSessionState = (ctx: MyContext, next: () => void) => {
-    if (!ctx.session.state) {
-        ctx.session.state = {};
+export const initSessionState = async (ctx: MyContext, next: () => void) => {
+    const telegramId = getUserId(ctx)!;
+
+    const user = await ctx.props.repository.getUser(telegramId);
+
+    if (!user) {
+        await ctx.props.repository.createUser(
+            telegramId,
+            [ctx.message?.from.first_name, ctx.message?.from.last_name].filter(Boolean).join(' '),
+        );
     }
 
-    if (!ctx.session.state.user) {
-        ctx.session.state.user = {};
-    }
-
-    if (!ctx.session.state.user.id) {
-        ctx.session.state.user.id = ctx.message?.chat.id;
-    }
+    ctx.session.state = {
+        user: {
+            id: telegramId,
+        },
+    };
 
     return next();
 };
